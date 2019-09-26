@@ -20,64 +20,6 @@ use common\behaviors\TimestampBehavior;
  *
  * @property SubscriptionPackage $package
  */
-class SubscriptionPackageItem extends \yii\db\ActiveRecord
+class SubscriptionPackageItem extends \ant\subscription\models\SubscriptionPackageItem
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%subscription_package_item}}';
-    }
-
-    public function behaviors(){
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-            ],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['subscription_identity', 'name', 'subscription_unit', 'subscription_days', 'content_valid_days', 'package_id'], 'required'],
-            [['subscription_unit', 'subscription_days', 'content_valid_days', 'status', 'package_id'], 'integer'],
-            [['status'], 'default', 'value' => 0],
-            [['created_at', 'updated_at'], 'safe'],
-            [['subscription_identity'], 'string', 'max' => 50],
-            [['name'], 'string', 'max' => 100],
-            [['package_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubscriptionPackage::className(), 'targetAttribute' => ['package_id' => 'id']],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'subscription_identity' => 'Subscription Identity',
-            'name' => 'Name',
-            'subscription_unit' => 'Subscription Unit',
-            'subscription_days' => 'Subscription Days',
-            'content_valid_days' => 'Content Valid Days',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'package_id' => 'Package ID',
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPackage()
-    {
-        return $this->hasOne(SubscriptionPackage::className(), ['id' => 'package_id']);
-    }
 }

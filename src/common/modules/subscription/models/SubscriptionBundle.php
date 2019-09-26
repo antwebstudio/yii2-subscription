@@ -16,57 +16,6 @@ use common\modules\payment\models\Invoice;
  *
  * @property Subscription[] $subscriptions
  */
-class SubscriptionBundle extends \yii\db\ActiveRecord
+class SubscriptionBundle extends \ant\subscription\models\SubscriptionBundle
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%subscription_bundle}}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'price'], 'required'],
-            [['price'], 'number'],
-            [['package_id'], 'integer'],
-            [['created_at'], 'safe'],
-            [['name'], 'string', 'max' => 255],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'price' => 'Price',
-            'package_id' => 'Package ID',
-            'created_at' => 'Created At',
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSubscriptions()
-    {
-        return $this->hasMany(Subscription::className(), ['bundle_id' => 'id']);
-    }
-	
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-	public function getInvoice()
-    {
-        return $this->hasOne(Invoice::className(), ['id' => 'invoice_id']);
-    }
 }
