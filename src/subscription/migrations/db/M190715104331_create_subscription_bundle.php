@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\subscription\migrations\db;
+namespace ant\subscription\migrations\db;
 
 use common\components\Migration;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace common\modules\subscription\migrations\db;
+namespace ant\subscription\migrations\db;
 
 use common\components\Migration;
 
-class M180508_000007_create_subscription_package extends Migration
+class M180508_000008_create_subscription_package_item extends Migration
 {
-	protected $tableName = '{{%subscription_package}}';
+	protected $tableName = '{{%subscription_package_item}}';
 	
     public function safeUp()
     {
@@ -14,15 +14,21 @@ class M180508_000007_create_subscription_package extends Migration
             'id' => $this->primaryKey()->unsigned(),
             'subscription_identity' => $this->string(50)->notNull(),
             'name' => $this->string(100)->notNull(),
-            'price' => $this->decimal(12, 2)->notNull(),
+            'subscription_unit' => $this->smallInteger(3)->notNull(),
+            'subscription_days' => $this->smallInteger(3)->notNull(),
+            'content_valid_days' => $this->smallInteger(3)->notNull(),
+            'status' => $this->integer(12)->notNull(),
             'created_at' => $this->timestamp()->defaultValue(null),
             'updated_at' => $this->timestamp()->defaultValue(null),
-            'app_id' => $this->smallInteger(4)->unsigned()->defaultValue(null),
+            'package_id' => $this->integer(255)->unsigned()->notNull(),
         ],  $this->getTableOptions());
+		
+        $this->addForeignKeyTo('{{%subscription_package}}', 'package_id', self::FK_TYPE_CASCADE, self::FK_TYPE_RESTRICT);
     }
 
     public function safeDown()
     {
+        $this->dropForeignKeyTo('{{%subscription_package}}', 'package_id');
         $this->dropTable($this->tableName);
     }
 

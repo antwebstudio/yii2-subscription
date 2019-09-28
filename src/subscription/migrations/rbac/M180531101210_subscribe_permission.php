@@ -1,15 +1,15 @@
 <?php
 
-namespace common\modules\subscription\migrations\rbac;
+namespace ant\subscription\migrations\rbac;
 
 use yii\db\Schema;
 use common\rbac\Migration;
 use common\rbac\Role;
-use backend\modules\subscription\controllers\SubscriptionController;
-use backend\modules\subscription\controllers\SubscriptionPackageController;
-use backend\modules\subscription\controllers\SubscriptionPackageHistoryController;
-use backend\modules\subscription\controllers\SubscribedMemberController;
-use backend\modules\subscription\controllers\SubscriptionHistoryController;
+use ant\subscription\backend\controllers\SubscriptionController;
+use ant\subscription\backend\controllers\SubscriptionPackageController;
+use ant\subscription\backend\controllers\SubscriptionPackageHistoryController;
+use ant\subscription\backend\controllers\SubscribedMemberController;
+use ant\subscription\backend\controllers\SubscriptionHistoryController;
 
 class M180531101210_subscribe_permission extends Migration
 {
@@ -47,7 +47,7 @@ class M180531101210_subscribe_permission extends Migration
 				'delete' => ['delete offline subscription', [Role::ROLE_ADMIN]],
 				'view' => ['view offline subscription', [Role::ROLE_ADMIN]],
 			],
-			\frontend\modules\subscription\controllers\DefaultController::className() => [
+			\ant\subscription\controllers\DefaultController::className() => [
 				'index' => ['Subscription dashboard', [Role::ROLE_USER]],
 			]
 		];
