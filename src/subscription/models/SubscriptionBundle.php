@@ -25,6 +25,15 @@ class SubscriptionBundle extends \yii\db\ActiveRecord
     {
         return '{{%subscription_bundle}}';
     }
+	
+	public function behaviors() {
+		return [
+            [
+                'class' => \common\behaviors\TimestampBehavior::className(),
+				'updatedAtAttribute' => null,
+            ],
+		];
+	}
 
     /**
      * {@inheritdoc}
@@ -32,7 +41,7 @@ class SubscriptionBundle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'price'], 'required'],
+            [['name', 'price', 'organization_id'], 'required'],
             [['price'], 'number'],
             [['package_id'], 'integer'],
             [['created_at'], 'safe'],

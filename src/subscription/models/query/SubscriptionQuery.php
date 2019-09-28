@@ -15,6 +15,13 @@ class SubscriptionQuery extends \yii\db\ActiveQuery {
             ->andWhere(['>', 'expire_date', date('Y-m-d H:i:s')]);
 	}
 	
+	public function ownedByOrganization($organization) {
+		$organization = $organization instanceof Organization ? $organization->id : $organization;
+		
+		return $this->joinWith('organization organization')
+			->andWhere(['organization.id' => $organization]);
+	}
+	
 	public function ownedBy($userId) {
 		return $this->andWhere(['owned_by' => $userId]);
 	}
@@ -24,9 +31,17 @@ class SubscriptionQuery extends \yii\db\ActiveQuery {
 			->andWhere(['invoice.status' => [Invoice::STATUS_PAID, Invoice::STATUS_PAID_MANUALLY]]);
 	}
 	
+	public function active() {
+		return $this->notExpired();
+	}
+	
+	public function notExpired() {
+		return $this->andWhere(['or', ['>', 'expire_at', date('Y-m-d H:i:s')], ['expire_at' => null]]);
+	}
+	
 	public function currentlyActiveForUser($userId) {
 		return $this->andWhere(['owned_by' => $userId])
-			->andWhere(['or', ['>', 'expire_date', date('Y-m-d H:i:s')], ['expire_date' => null]]);
+			->andWhere(['or', ['>', 'expire_at', date('Y-m-d H:i:s')], ['expire_at' => null]]);
 	}
 
 	public function type($type) {

@@ -4,6 +4,8 @@ namespace ant\subscription\models;
 
 use Yii;
 use common\behaviors\TimestampBehavior;
+use common\modules\user\models\User;
+use common\modules\organization\models\Organization;
 use common\modules\payment\models\Invoice;
 use common\modules\payment\models\InvoiceItem;
 use common\modules\payment\models\BillableItem;
@@ -129,20 +131,33 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
         $model->save();
     }
 	
-	public function subscribe($user, $startDateTime = null) {
-		if (!$user->id) throw new \Exception('User is not an valid user. ');
+	public function subscribe($subscriber, $startDateTime = null) {
+		if ($subscriber instanceof User) {
+			$user = $subscriber;
+			if (!$user->id) throw new \Exception('User is not an valid user. ');
+			
+			if (!isset($user->profile->contact)) throw new \Exception('Cannot issue invoice to user (user ID: '.$user->id.') without default contact info. ');
+			$billTo = $user->profile->contact;
+		} else if ($subscriber instanceof Organization) {
+			$organization = $subscriber;
+			if (!$organization->id) throw new \Exception('Organization is not an valid organization. ');
+			$billTo = $organization->contact;
+		} else {
+			throw new \Exception('Subscriber must be instance of either User or Organization. ');
+		}
 		
 		$items = SubscriptionPackageItem::findAll(['package_id' => $this->id]);
 		
 		$transaction = Yii::$app->db->beginTransaction();
 		
 		try {
-			$invoice = $this->createInvoice($user);
+			$invoice =Invoice::createFromBillableItem($this, $billTo);
 			
 			$bundle = new SubscriptionBundle;
 			$bundle->attributes = $this->attributes;
 			$bundle->invoice_id = $invoice->id;
 			$bundle->package_id = $this->id;
+			$bundle->organization_id = isset($organization) ? $organization->id : null;
 			if (!$bundle->save()) throw new \Exception('Failed to create bundle. ');
 			
 			foreach ($items as $item) {
@@ -153,14 +168,16 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 				$subscription->attributes = [
 					'subscription_identity' => $item->subscription_identity,
 					'price' => $this->price,
-					'purchased_unit' => 1,
+					'purchased_unit' => $item->unit,
 					'used_unit' => 0,
-					'content_valid_days' => $item->content_valid_days,
-					'invoice_id' => $invoice->id,					
+					'content_valid_period' => $item->content_valid_period,
+					'content_valid_period_type' => $item->content_valid_period_type,
+					'invoice_id' => $invoice->id,	
+					'priority' => $item->priority,
 				];
 				$subscription->package_id = $this->id;
-				$subscription->owned_by = $user->id;
-				$subscription->setExpireAtDays($item->content_valid_days, true, $startDateTime);
+				$subscription->owned_by = isset($user) ? $user->id : null;
+				$subscription->setExpireAt($item->valid_period, $item->valid_period_type, true, $startDateTime);
 				
 				if (!$subscription->save()) throw new \Exception('Failed to create subscription. '.print_r($subscription->errors, 1));
 			}
@@ -172,12 +189,6 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 			$transaction->rollback();
 			throw $ex;
 		}
-	}
-	
-	public function createInvoice($user) {
-		if (!isset($user->profile->contact)) throw new \Exception('Cannot issue invoice to user without default contact info. ');
-
-		return Invoice::createFromBillableItem($this, $user->profile->contact);
 	}
 
 }

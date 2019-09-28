@@ -5,6 +5,7 @@ namespace ant\subscription\models;
 use Yii;
 use common\modules\payment\models\Invoice;
 use common\modules\user\models\User;
+use common\modules\organization\models\Organization;
 use yii\behaviors\BlameableBehavior;
 use common\helpers\DateTime;
 use common\behaviors\TimestampBehavior;
@@ -19,7 +20,7 @@ use common\behaviors\TimestampBehavior;
  * @property integer $content_valid_days
  * @property integer $status
  * @property integer $owned_by
- * @property string $expire_date
+ * @property string $expire_at
  * @property string $created_at
  * @property string $updated_at
  * @property string $invoice_id
@@ -46,10 +47,10 @@ class Subscription extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subscription_identity', 'price', 'purchased_unit', 'used_unit', 'content_valid_days', 'owned_by', 'invoice_id'], 'required'],
+            [['subscription_identity', 'price', 'purchased_unit', 'used_unit', 'priority', 'invoice_id'], 'required'],
             [['price'], 'number'],
-            [['purchased_unit', 'used_unit', 'content_valid_days', 'status', 'owned_by', 'invoice_id', 'app_id'], 'integer'],
-            [['expire_date', 'created_at', 'updated_at'], 'safe'],
+            [['purchased_unit', 'used_unit', 'content_valid_period', 'status', 'owned_by', 'invoice_id', 'app_id'], 'integer'],
+            [['expire_at', 'created_at', 'updated_at'], 'safe'],
             [['status'], 'default', 'value' => 0],
             [['subscription_identity'], 'string', 'max' => 50],
             [['invoice_id'], 'exist', 'skipOnError' => true, 'targetClass' => Invoice::className(), 'targetAttribute' => ['invoice_id' => 'id']],
@@ -84,7 +85,7 @@ class Subscription extends \yii\db\ActiveRecord
             'content_valid_days' => 'Content Valid Days',
             'status' => 'Status',
             'owned_by' => 'Owned By',
-            'expire_date' => 'Expire Date',
+            'expire_at' => 'Expire Date',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'invoice_id' => 'Invoice ID',
@@ -100,9 +101,9 @@ class Subscription extends \yii\db\ActiveRecord
 	}
 	
 	public function getIsExpired() {
-		if (isset($this->expire_date)/* && !$this->expire_date->getIsNull()*/) {
+		if (isset($this->expire_at)/* && !$this->expire_at->getIsNull()*/) {
 			$now = new DateTime();
-			$expireDate = new DateTime($this->expire_date);
+			$expireDate = new DateTime($this->expire_at);
 			return ($expireDate < $now);
 		}
 		return false;
@@ -124,15 +125,40 @@ class Subscription extends \yii\db\ActiveRecord
     public static function find() {
         return new \common\modules\subscription\models\query\SubscriptionQuery(get_called_class());
     }
+	
+	public function getBundle() {
+		return $this->hasOne(SubscriptionBundle::class, ['id' => 'bundle_id']);
+	}
+	
+	public function getOrganization() {
+		return $this->hasOne(Organization::class, ['id' => 'organization_id'])
+			->via('bundle');
+	}
 
     public function getUser(){
         return $this->hasOne(User::className(), ['id' => 'owned_by']);
     }
 	
+	// Set expire date
+	public function setExpireAt($period, $periodType, $setTimeAsEndOfDay = true, $fromDateTime = null) {
+		if (isset($periodType) && isset($period)) {
+			$expireAt = isset($fromDateTime) ? new DateTime($fromDateTime) : new DateTime;
+			$expireAt = \ant\helpers\RecurringHelper::getNextDateTime($expireAt, $period, $periodType);
+			if ($setTimeAsEndOfDay) $expireAt->setTimeAsEndOfDay();
+			$this->expire_at = $expireAt;
+		} else if (!isset($periodType) && !isset($periodType)) {
+			$this->expire_at = null;
+		} else {
+			throw new \Exception('Period type and period must be either both set or both are not set. ');
+		}
+	}
+	
 	// Set expire date as x days after today
 	public function setExpireAtDays($day, $setTimeAsEndOfDay = true, $fromDateTime = null) {
-		$fromDateTime = isset($fromDateTime) ? new DateTime($fromDateTime) : new DateTime;
-		$this->expire_date = $fromDateTime->addDays($day)->setTimeAsEndOfDay($setTimeAsEndOfDay);
+		$expireAt = isset($fromDateTime) ? new DateTime($fromDateTime) : new DateTime;
+		$expireAt->addDays($day);
+		if ($setTimeAsEndOfDay) $expireAt->setTimeAsEndOfDay();
+		$this->expire_at = $expireAt;
 	}
 
     public static function createExpireDate($userId, $day = null){
@@ -143,7 +169,7 @@ class Subscription extends \yii\db\ActiveRecord
         }
         $existedSubscription = self::find()->currentlyActiveForUser($userId)->one();
         if ($existedSubscription) {
-            $expireDate = date('Y-m-d 00:00:00', strtotime($existedSubscription->expire_date . " +". $day ." days"));
+            $expireDate = date('Y-m-d 00:00:00', strtotime($existedSubscription->expire_at . " +". $day ." days"));
         } else {
             $expireDate = date('Y-m-d 00:00:00', strtotime(" +". $day ." days"));
         }
