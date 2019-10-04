@@ -20,9 +20,9 @@ class M180508_000006_create_subscription extends Migration
             'status' => $this->integer(12)->notNull(),
             'owned_by' => $this->integer(11)->notNull(),
             'expire_date' => $this->timestamp()->null()->defaultValue(null),
-            'created_at' => $this->timestamp()->defaultValue(null),
-            'updated_at' => $this->timestamp()->defaultValue(null),
-            'invoice_id' => $this->integer(255)->unsigned()->notNull(),
+            'created_at' => $this->timestamp()->null()->defaultValue(null),
+            'updated_at' => $this->timestamp()->null()->defaultValue(null),
+            'invoice_id' => $this->integer(255)->unsigned()->null()->defaultValue(null),
             'app_id' => $this->smallInteger(4)->unsigned()->defaultValue(null),
         ],  $this->getTableOptions());
             $this->addForeignKeyTo('{{%payment_invoice}}', 'invoice_id', self::FK_TYPE_CASCADE, self::FK_TYPE_RESTRICT);

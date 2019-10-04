@@ -3,17 +3,22 @@
 namespace ant\subscription\controllers;
 
 use Yii;
-use common\modules\subscription\models\Subscription;
-use common\modules\subscription\models\SubscriptionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use common\modules\organization\models\Organization;
+use ant\subscription\models\SubscriptionPackage;
+use ant\subscription\models\Subscription;
+use ant\subscription\models\SubscriptionSearch;
 
 /**
  * SubscriptionController implements the CRUD actions for Subscription model.
  */
 class SubscriptionController extends Controller
 {
+    public $layout = '//member-dashboard';
+	
     /**
      * @inheritdoc
      */
@@ -37,8 +42,10 @@ class SubscriptionController extends Controller
     {
         $searchModel = new SubscriptionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->ownedBy(Yii::$app->user->id)->orderBy(new \yii\db\Expression('`expire_at` IS NULL, `expire_at` ASC'))->limit(10);
+        $dataProvider->pagination = false;
 
-        return $this->render('index', [
+        return $this->render($this->action->id, [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -51,7 +58,7 @@ class SubscriptionController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->render($this->action->id, [
             'model' => $this->findModel($id),
         ]);
     }
@@ -61,14 +68,20 @@ class SubscriptionController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($package = null)
     {
-        $model = new Subscription();
+		$paymentMethod = 'ipay88'; // @TODO: Remove hardcode payment method
+		$organization = Organization::find()->haveCollaborator(Yii::$app->user->id)->one();
+		
+		$model = $this->module->getFormModel('subscription', [
+			'organization' => $organization,
+			'packageId' => $package,
+		]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect($model->subscriptionBundle->invoice->getPayRoute($paymentMethod));
         } else {
-            return $this->render('create', [
+            return $this->render($this->action->id, [
                 'model' => $model,
             ]);
         }
@@ -87,7 +100,7 @@ class SubscriptionController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->render($this->action->id, [
                 'model' => $model,
             ]);
         }

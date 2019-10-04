@@ -80,4 +80,10 @@ class SubscriptionPackageItem extends \yii\db\ActiveRecord
     {
         return $this->hasOne(SubscriptionPackage::className(), ['id' => 'package_id']);
     }
+	
+	public function toString() {
+		return Yii::t('subscription', $this->name, [
+			'unit' => $this->unit,
+		]);
+	}
 }

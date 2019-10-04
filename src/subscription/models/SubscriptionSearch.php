@@ -27,8 +27,8 @@ class SubscriptionSearch extends Subscription
     public function rules()
     {
         return [
-            [['id', 'app_id', 'purchased_unit', 'used_unit', 'content_valid_days', 'status', 'owned_by', 'invoice_id'], 'integer'],
-            [['subscription_identity', 'expire_date', 'created_at', 'updated_at', 'username', 'packageName', 'packagePrice', 'actualPay', 'paymentDate'], 'safe'],
+            [['id', 'app_id', 'purchased_unit', 'used_unit', 'content_valid_period', 'status', 'owned_by', 'invoice_id'], 'integer'],
+            [['subscription_identity', 'expire_at', 'created_at', 'updated_at', 'username', 'packageName', 'packagePrice', 'actualPay', 'paymentDate'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -77,10 +77,10 @@ class SubscriptionSearch extends Subscription
             'price' => $this->price,
             'purchased_unit' => $this->purchased_unit,
             'used_unit' => $this->used_unit,
-            'content_valid_days' => $this->content_valid_days,
+            'content_valid_period' => $this->content_valid_period,
             'status' => $this->status,
             'owned_by' => $this->owned_by,
-            'expire_date' => $this->expire_date,
+            'expire_at' => $this->expire_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'invoice_id' => $this->invoice_id,

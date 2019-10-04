@@ -32,6 +32,10 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
     {
         return '{{%subscription_package}}';
     }
+	
+	public static function find() {
+		return new \ant\subscription\models\query\SubscriptionPackageQuery(get_called_class());
+	}
 
     /**
      * @inheritdoc
@@ -131,7 +135,9 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
         $model->save();
     }
 	
-	public function subscribe($subscriber, $startDateTime = null) {
+	public function subscribe($subscriber, $startDateTime = null, $createInvoice = true) {
+		if ($this->isNewRecord) throw new \Exception('Subscription package is not yet saved. ');
+			
 		if ($subscriber instanceof User) {
 			$user = $subscriber;
 			if (!$user->id) throw new \Exception('User is not an valid user. ');
@@ -141,7 +147,7 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 		} else if ($subscriber instanceof Organization) {
 			$organization = $subscriber;
 			if (!$organization->id) throw new \Exception('Organization is not an valid organization. ');
-			$billTo = $organization->contact;
+			$billTo = $organization;
 		} else {
 			throw new \Exception('Subscriber must be instance of either User or Organization. ');
 		}
@@ -151,11 +157,13 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 		$transaction = Yii::$app->db->beginTransaction();
 		
 		try {
-			$invoice =Invoice::createFromBillableItem($this, $billTo);
+			if ($createInvoice) {
+				$invoice = Invoice::createFromBillableItem($this, $billTo);
+			}
 			
 			$bundle = new SubscriptionBundle;
 			$bundle->attributes = $this->attributes;
-			$bundle->invoice_id = $invoice->id;
+			$bundle->invoice_id = isset($invoice) ? $invoice->id : null;
 			$bundle->package_id = $this->id;
 			$bundle->organization_id = isset($organization) ? $organization->id : null;
 			if (!$bundle->save()) throw new \Exception('Failed to create bundle. ');
@@ -172,7 +180,7 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 					'used_unit' => 0,
 					'content_valid_period' => $item->content_valid_period,
 					'content_valid_period_type' => $item->content_valid_period_type,
-					'invoice_id' => $invoice->id,	
+					'invoice_id' => isset($invoice) ? $invoice->id : null,
 					'priority' => $item->priority,
 				];
 				$subscription->package_id = $this->id;

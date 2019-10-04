@@ -2,22 +2,49 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use ant\subscription\models\Subscription;
+use common\modules\organization\models\Organization;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\modules\subscription\models\SubscriptionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Subscriptions');
+$this->params['title'] = $this->title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="subscription-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+	<?php /*
+	Balance Credit: <?= Yii::$app->subscription->getCreditBalance(Yii::$app->user->id) ?>
+	*/?>
+	
+	<?= GridView::widget([
+		'dataProvider' => $dataProvider,
+		'layout' => "{items}\n{pager}",
+		'columns' => [
+			['class' => 'yii\grid\SerialColumn'],
+			[
+				'label' => 'Purchase Date',
+				'attribute' => 'created_at',
+			],
+			[
+				'attribute' => 'expire_at',
+				'value' => function($model) {
+					return isset($model->expire_at) ? date('Y-m-d', strtotime($model->expire_at)) : ' - ';
+				}
+			],
+			[
+			  'attribute' => 'isExpired',
+			  'label' => 'Status',
+			  'value' => function($model) {
+				return $model->isExpired ? 'Expired' : 'Active';
+			  }
+			],
+			'price',
+		],
+	]) ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Subscription'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

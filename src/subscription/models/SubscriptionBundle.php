@@ -62,6 +62,10 @@ class SubscriptionBundle extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
         ];
     }
+	
+	public function getIsFree() {
+		return isset($this->invoice) ? $this->invoice->isFree : true;
+	}
 
     /**
      * @return \yii\db\ActiveQuery

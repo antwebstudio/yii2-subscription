@@ -47,7 +47,7 @@ class Subscription extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subscription_identity', 'price', 'purchased_unit', 'used_unit', 'priority', 'invoice_id'], 'required'],
+            [['subscription_identity', 'price', 'purchased_unit', 'used_unit', 'priority'], 'required'],
             [['price'], 'number'],
             [['purchased_unit', 'used_unit', 'content_valid_period', 'status', 'owned_by', 'invoice_id', 'app_id'], 'integer'],
             [['expire_at', 'created_at', 'updated_at'], 'safe'],
@@ -98,6 +98,18 @@ class Subscription extends \yii\db\ActiveRecord
 			return '<span class="label label-warning">Expired</span>';
 		}
 		return '<span class="label label-success">Active</span>';
+	}
+	
+	public function getIsFree() {
+		return $this->price == 0;
+	}
+	
+	public function getIsActive() {
+		throw new \Exception('Not yet implemented');
+	}
+	
+	public function getIsSuspended() {
+		throw new \Exception('Not yet implemented');
 	}
 	
 	public function getIsExpired() {

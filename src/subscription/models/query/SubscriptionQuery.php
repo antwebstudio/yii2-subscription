@@ -31,8 +31,17 @@ class SubscriptionQuery extends \yii\db\ActiveQuery {
 			->andWhere(['invoice.status' => [Invoice::STATUS_PAID, Invoice::STATUS_PAID_MANUALLY]]);
 	}
 	
+	public function isPaidOrFree() {
+		return $this->joinWith('invoice invoice')
+			->andWhere(['OR', 
+				['invoice.id' => null],
+				['invoice.status' => [Invoice::STATUS_PAID, Invoice::STATUS_PAID_MANUALLY]],
+				['invoice.total_amount' => 0],
+			]);
+	}
+	
 	public function active() {
-		return $this->notExpired();
+		return $this->notExpired()->isPaidOrFree();
 	}
 	
 	public function notExpired() {

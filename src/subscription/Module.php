@@ -16,4 +16,20 @@ class Module extends \yii\base\Module
 
         // custom initialization code goes here
     }
+	
+	public function behaviors() {
+		return [
+			'configurable' => [
+				'class' => 'common\behaviors\ConfigurableModuleBehavior'
+			],
+		];
+	}
+	
+	public function formModels() {
+		return [
+			'subscription' => [
+				'class' => 'ant\subscription\models\SubscriptionForm',
+			],
+		];
+	}
 }
