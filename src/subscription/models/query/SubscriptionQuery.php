@@ -15,6 +15,10 @@ class SubscriptionQuery extends \yii\db\ActiveQuery {
             ->andWhere(['>', 'expire_date', date('Y-m-d H:i:s')]);
 	}
 	
+	public function lastExpirePaidOrFreeSubscription() {
+		return $this->orderBy('expire_at DESC')->isPaidOrFree();
+	}
+	
 	public function ownedByOrganization($organization) {
 		$organization = $organization instanceof Organization ? $organization->id : $organization;
 		

@@ -5,7 +5,8 @@ namespace ant\subscription\models;
 use Yii;
 use common\behaviors\TimestampBehavior;
 use common\modules\user\models\User;
-use common\modules\organization\models\Organization;
+use ant\organization\models\Organization;
+use common\modules\organization\models\Organization as OldOrganizationClass;
 use common\modules\payment\models\Invoice;
 use common\modules\payment\models\InvoiceItem;
 use common\modules\payment\models\BillableItem;
@@ -135,7 +136,9 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
         $model->save();
     }
 	
-	public function subscribe($subscriber, $startDateTime = null, $createInvoice = true) {
+	// The $user parameter is needed when user is not logged in
+	// when user is logged in, and no $user is passwed in as parameter, $subscription->owned_by will get user id from Yii::$app->user->id
+	public function subscribe($subscriber, $startDateTime = null, $createInvoice = true, $user = null) {
 		if ($this->isNewRecord) throw new \Exception('Subscription package is not yet saved. ');
 			
 		if ($subscriber instanceof User) {
@@ -144,7 +147,7 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 			
 			if (!isset($user->profile->contact)) throw new \Exception('Cannot issue invoice to user (user ID: '.$user->id.') without default contact info. ');
 			$billTo = $user->profile->contact;
-		} else if ($subscriber instanceof Organization) {
+		} else if ($subscriber instanceof Organization || $subscriber instanceof OldOrganizationClass) {
 			$organization = $subscriber;
 			if (!$organization->id) throw new \Exception('Organization is not an valid organization. ');
 			$billTo = $organization;
@@ -183,6 +186,8 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 					'invoice_id' => isset($invoice) ? $invoice->id : null,
 					'priority' => $item->priority,
 				];
+				if (isset($user)) $subscription->owned_by = $user->id;
+				
 				$subscription->package_id = $this->id;
 				$subscription->owned_by = isset($user) ? $user->id : null;
 				$subscription->setExpireAt($item->valid_period, $item->valid_period_type, true, $startDateTime);

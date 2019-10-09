@@ -6,6 +6,7 @@ use ant\subscription\models\SubscriptionPackage;
 class SubscriptionForm extends \ant\base\FormModel {
 	public $packageId;
 	public $isNewRecord = true;
+	public $paymentMethod;
 	
 	public function init() {
 		$this->package = SubscriptionPackage::findOne($this->packageId);
@@ -27,7 +28,7 @@ class SubscriptionForm extends \ant\base\FormModel {
 	
 	public function rules() {
 		return [
-			[['packageId'], 'required'],
+			[['packageId', 'paymentMethod'], 'required'],
 		];
 	}
 	

@@ -70,7 +70,6 @@ class SubscriptionController extends Controller
      */
     public function actionCreate($package = null)
     {
-		$paymentMethod = 'ipay88'; // @TODO: Remove hardcode payment method
 		$organization = Organization::find()->haveCollaborator(Yii::$app->user->id)->one();
 		
 		$model = $this->module->getFormModel('subscription', [
@@ -79,7 +78,7 @@ class SubscriptionController extends Controller
 		]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect($model->subscriptionBundle->invoice->getPayRoute($paymentMethod));
+            return $this->redirect($model->subscriptionBundle->invoice->getPayRoute($model->paymentMethod));
         } else {
             return $this->render($this->action->id, [
                 'model' => $model,

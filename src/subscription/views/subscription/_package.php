@@ -31,7 +31,7 @@ use common\helpers\Currency;
 		</article>
 	</div>
 	<div class="col-md-4 mb-30">
-		<div class="px-20 py-40">
+		<div class="px-20 py-40 text-center">
 			<ul class="list-unstyled mb-40">
 				<?php foreach ($package->packageItems as $item): ?>
 					<li class="mb-20"><?= $item->toString() ?></li>
@@ -42,7 +42,7 @@ use common\helpers\Currency;
 	</div>
 	<?php if ($actionButtonLabel !== false): ?>
 		<div class="col-md-4 mb-30">
-			<div class="px-20 py-40">
+			<div class="px-20 py-40 text-center">
 				<a class="btn btn-primary mb-10" href="<?= Url::to(['/subscription/subscription/create', 'package' => $package->id]) ?>">
 					<?= $actionButtonLabel ?>
 				</a>
