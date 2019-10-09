@@ -10,9 +10,9 @@ use common\behaviors\TimestampBehavior;
  * @property string $id
  * @property string $subscription_identity
  * @property string $name
- * @property integer $subscription_unit
- * @property integer $subscription_days
- * @property integer $content_valid_days
+ * @property integer $unit
+ * @property integer $valid_period
+ * @property integer $content_valid_period
  * @property integer $status
  * @property string $created_at
  * @property string $updated_at
@@ -44,8 +44,8 @@ class SubscriptionPackageItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subscription_identity', 'name', 'subscription_unit', 'subscription_days', 'content_valid_days', 'package_id'], 'required'],
-            [['subscription_unit', 'subscription_days', 'content_valid_days', 'status', 'package_id'], 'integer'],
+            [['subscription_identity', 'name', 'unit', 'valid_period', 'content_valid_period', 'package_id'], 'required'],
+            [['unit', 'valid_period', 'content_valid_period', 'status', 'package_id'], 'integer'],
             [['status'], 'default', 'value' => 0],
             [['created_at', 'updated_at'], 'safe'],
             [['subscription_identity'], 'string', 'max' => 50],
@@ -63,9 +63,9 @@ class SubscriptionPackageItem extends \yii\db\ActiveRecord
             'id' => 'ID',
             'subscription_identity' => 'Subscription Identity',
             'name' => 'Name',
-            'subscription_unit' => 'Subscription Unit',
-            'subscription_days' => 'Subscription Days',
-            'content_valid_days' => 'Content Valid Days',
+            'unit' => 'Subscription Unit',
+            'valid_period' => 'Subscription Days',
+            'content_valid_period' => 'Content Valid Days',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

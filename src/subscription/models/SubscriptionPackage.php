@@ -166,7 +166,7 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 			$bundle->invoice_id = isset($invoice) ? $invoice->id : null;
 			$bundle->package_id = $this->id;
 			$bundle->organization_id = isset($organization) ? $organization->id : null;
-			if (!$bundle->save()) throw new \Exception('Failed to create bundle. ');
+			if (!$bundle->save()) throw new \Exception('Failed to create bundle. '.print_r($bundle->errors, 1));
 			
 			foreach ($items as $item) {
 				

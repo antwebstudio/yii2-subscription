@@ -151,6 +151,10 @@ class Subscription extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'owned_by']);
     }
 	
+	public function getExpireAt() {
+		return $this->expire_at;
+	}
+	
 	// Set expire date
 	public function setExpireAt($period, $periodType, $setTimeAsEndOfDay = true, $fromDateTime = null) {
 		if (isset($periodType) && isset($period)) {

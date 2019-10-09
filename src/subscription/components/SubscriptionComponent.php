@@ -26,6 +26,7 @@ class SubscriptionComponent extends \yii\base\Component {
             'used_unit' => 0,
             'content_valid_days' => 0,
             //'owned_by' => $ownerId,
+			'priority' => 0,
             'invoice_id' => $invoice->id,
             'expire_at' => null,
         ];

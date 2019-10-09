@@ -24,11 +24,10 @@ class SubscriptionCest
         $packageItem = new SubscriptionPackageItem(['subscription_identity' => $this->identity]);
         $packageItem->attributes = [
             'package_id' => $package->id,
-            'subscription_unit' => 0,
-            'subscription_days' => 0,
             'name' => 'test item',
+			'valid_period' => 0,
+			'content_valid_period' => 0,
             'unit' => 0,
-            'content_valid_days' => 0,
         ];
         if (!$packageItem->save()) throw new \Exception(Html::errorSummary($packageItem));
 
