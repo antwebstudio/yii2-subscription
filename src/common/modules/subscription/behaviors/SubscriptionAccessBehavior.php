@@ -20,7 +20,7 @@ class SubscriptionAccessBehavior extends Behavior
         $user = $this->user;
         $subscription = Subscription::find()
             ->andWhere(['owned_by' => $user->id])
-            ->andWhere(['>', 'expire_date', date('Y-m-d H:i:s')])
+            ->andWhere(['>', 'expire_at', date('Y-m-d H:i:s')])
             ->one();
         if(!$subscription) {
             throw new ForbiddenHttpException(Yii::t('yii', 'Your ' . $msg . ' is expired.'));

@@ -41,8 +41,8 @@ class SubscriptionBundle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'price', 'organization_id'], 'required'],
-            [['price'], 'number'],
+            [['name', 'price'], 'required'],
+            [['price', 'organization_id'], 'number'],
             [['package_id'], 'integer'],
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 255],

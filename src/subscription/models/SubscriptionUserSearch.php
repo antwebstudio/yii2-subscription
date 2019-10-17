@@ -62,20 +62,20 @@ class SubscriptionUserSearch extends UserSearch
         if ($this->noSubscribe) {
             $query->andWhere([
                 'or', 
-                ['<', 'DATE(expire_date)' , date('Y-m-d')],
-                ['expire_date' => null],
+                ['<', 'DATE(expire_at)' , date('Y-m-d')],
+                ['expire_at' => null],
             ]);
             $dataProvider->setSort([
                 'attributes' => [
                     'expireDate' => [
-                        'asc' => ['expire_date' => SORT_ASC],
-                        'desc' => ['expire_date' => SORT_DESC],
+                        'asc' => ['expire_at' => SORT_ASC],
+                        'desc' => ['expire_at' => SORT_DESC],
                         'label' => 'Last Subscription',
                     ],                    
-                    'price' => [
+                    /*'price' => [
                         'asc' => ['expire_date' => SORT_ASC],
                         'desc' => ['expire_date' => SORT_DESC],
-                    ],
+                    ],*/
                     'content_valid_days' => [
                         'asc' => ['content_valid_days' => SORT_ASC],
                         'desc' => ['content_valid_days' => SORT_DESC],
@@ -93,7 +93,7 @@ class SubscriptionUserSearch extends UserSearch
             // $query
             // ->andFilterWhere(['<','expire_date' , date('Y-m-d')])
             // ->andFilterWhere(['owned_by' => '{{%user}}'.'.id']);
-            $query->andFilterWhere(['like', 'expire_date', $this->expireDate]);
+            $query->andFilterWhere(['like', 'expire_at', $this->expireDate]);
         }
         return $dataProvider;
     }

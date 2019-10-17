@@ -14,9 +14,9 @@ Balance Credit: <?= Yii::$app->subscription->getCreditBalance(Yii::$app->user->i
             'attribute' => 'created_at',
         ],
         [
-            'attribute' => 'expire_date',
+            'attribute' => 'expire_at',
             'value' => function($model) {
-                return isset($model->expire_date) ? date('Y-m-d', strtotime($model->expire_date)) : ' - ';
+                return isset($model->expire_at) ? date('Y-m-d', strtotime($model->expire_at)) : ' - ';
             }
         ],
         [

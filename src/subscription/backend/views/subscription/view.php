@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'content_valid_days',
             'status',
             'owned_by',
-            'expire_date',
+            'expire_at',
             'created_at',
             'updated_at',
             'invoice_id',

@@ -13,10 +13,10 @@ return [
 		'package_id' => 2,
 		'name' => '2 week free trial',
 		'unit' => 2,
-		'valid_period_type' => 4, // week
-		'valid_period' => 2, // 2 weeks
+		'valid_period_type' => 4, // week, matter
+		'valid_period' => 2, // 2 weeks, matter
 		'content_valid_period' => 4,
 		'status' => 0,
-		'subscription_identity' => 'test',
+		'subscription_identity' => 'booking', // matter
 	],
 ];

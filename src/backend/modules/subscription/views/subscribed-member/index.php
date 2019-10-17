@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) {
                     $subscription = Subscription::find()->andWhere(['owned_by' => $model->id])->orderBy(['created_at' => SORT_DESC])->one();
                     if ($subscription) {
-                        return date('Y-m-d', strtotime($subscription->expire_date));
+                        return date('Y-m-d', strtotime($subscription->expire_at));
                     } else {
                         return 'No record';
                     }

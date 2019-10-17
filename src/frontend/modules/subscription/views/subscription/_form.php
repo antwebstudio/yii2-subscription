@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'owned_by')->textInput() ?>
 
-    <?= $form->field($model, 'expire_date')->textInput() ?>
+    <?= $form->field($model, 'expire_at')->textInput() ?>
 
     <?= $form->field($model, 'invoice_id')->textInput() ?>
 

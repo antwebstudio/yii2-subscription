@@ -174,8 +174,8 @@ class SubscribedMemberController extends Controller
                 ->orderBy(['created_at' => SORT_DESC])
                 ->one()->id;
             $newModel->load($post);
-            //$newModel->expire_date = Subscription::createExpireDate($buyer->id, $item->subscription_days);
-            $newModel->expire_date = Subscription::createExpireDate($buyer->id, $newModel->content_valid_days);
+            //$newModel->expire_at = Subscription::createExpireDate($buyer->id, $item->subscription_days);
+            $newModel->expire_at = Subscription::createExpireDate($buyer->id, $newModel->content_valid_days);
             $newModel->owned_by = $buyerId;
             $newModel->detachBehavior('blameable');
             $newModel->save();

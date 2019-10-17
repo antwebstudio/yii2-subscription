@@ -3,7 +3,7 @@
 	'columns' => [
 		'subscriptionPackage.id',
 		'subscriptionPackage.name',
-		'expire_date',
+		'expire_at',
 		[
 			'format' => 'html',
 			'attribute' => 'statusHtml',

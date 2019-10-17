@@ -12,7 +12,7 @@ class SubscriptionQuery extends \yii\db\ActiveQuery {
 	// Reference: https://stackoverflow.com/questions/13513932/algorithm-to-detect-overlapping-periods
 	public function isExpire() {
 		return $this->andWhere(['owned_by' => Yii::$app->user->id])
-            ->andWhere(['>', 'expire_date', date('Y-m-d H:i:s')]);
+            ->andWhere(['>', 'expire_at', date('Y-m-d H:i:s')]);
 	}
 	
 	public function lastExpirePaidOrFreeSubscription() {

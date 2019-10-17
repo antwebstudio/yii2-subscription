@@ -39,9 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             [
                 'label' => 'Expire Date',
-                'attribute' => 'expire_date',
+                'attribute' => 'expire_at',
                 'value' => function($model) {
-                    return date('Y-m-d', strtotime($model->expire_date));
+                    return date('Y-m-d', strtotime($model->expire_at));
                 }
             ],
             //'purchased_unit',
