@@ -1,4 +1,6 @@
 <?php
+if (YII_DEBUG) throw new \Exception('DEPRECATED, please use subscription/backend/subscription instead. '); // 2019-10-18
+
 
 use yii\helpers\Html;
 use yii\helpers\Url;

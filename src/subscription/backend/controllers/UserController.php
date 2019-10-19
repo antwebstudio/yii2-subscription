@@ -36,7 +36,7 @@ class UserController extends \yii\web\Controller
      */
     public function actionView($id)
     {
-		$subscriptions
+		//$subscriptions
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

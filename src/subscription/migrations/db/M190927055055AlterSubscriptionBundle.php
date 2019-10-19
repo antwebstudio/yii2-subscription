@@ -16,6 +16,7 @@ class M190927055055AlterSubscriptionBundle extends Migration
     public function safeUp()
     {
 		$this->addColumn($this->tableName, 'organization_id', $this->integer()->unsigned()->null()->defaultValue(null));
+		$this->addColumn($this->tableName, 'owned_by', $this->integer()->unsigned()->null()->defaultValue(null));
 		$this->addForeignKeyTo('{{%organization}}', 'organization_id');
     }
 
@@ -25,6 +26,7 @@ class M190927055055AlterSubscriptionBundle extends Migration
     public function safeDown()
     {
 		$this->dropForeignKeyTo('{{%organization}}', 'organization_id');
+		$this->dropForeignKeyTo('{{%organization}}', 'owned_by');
 		$this->dropColumn($this->tableName, 'organization_id');
     }
 

@@ -2,7 +2,10 @@
 	'dataProvider' => $dataProvider,
 	'columns' => [
 		'subscriptionPackage.id',
-		'subscriptionPackage.name',
+		[
+			'label' => 'Subscribed Package',
+			'attribute' => 'subscriptionPackage.name',
+		],
 		'expire_at',
 		[
 			'format' => 'html',

@@ -146,7 +146,7 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 			if (!$user->id) throw new \Exception('User is not an valid user. ');
 			
 			if (!isset($user->profile->contact)) throw new \Exception('Cannot issue invoice to user (user ID: '.$user->id.') without default contact info. ');
-			$billTo = $user->profile->contact;
+			$billTo = $user;
 		} else if ($subscriber instanceof Organization || $subscriber instanceof OldOrganizationClass) {
 			$organization = $subscriber;
 			if (!$organization->id) throw new \Exception('Organization is not an valid organization. ');

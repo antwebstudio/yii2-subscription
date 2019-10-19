@@ -146,6 +146,10 @@ class Subscription extends \yii\db\ActiveRecord
 		return $this->hasOne(Organization::class, ['id' => 'organization_id'])
 			->via('bundle');
 	}
+	
+	public function getOwner() {
+		return $this->hasOne(User::className(), ['id' => 'owned_by']);
+	}
 
     public function getUser(){
         return $this->hasOne(User::className(), ['id' => 'owned_by']);
