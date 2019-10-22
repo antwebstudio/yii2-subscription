@@ -53,8 +53,9 @@ class SubscriptionController extends Controller
 	
 	public function actionUser($user) {
         $searchModel = new SubscriptionSearch();
+		$searchModel->userId = $user;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$dataProvider->query->andWhere(['owned_by' => $user]);
+		//$dataProvider->query->andWhere(['owned_by' => $user]);
 		
         return $this->render($this->action->id, [
             'searchModel' => $searchModel,

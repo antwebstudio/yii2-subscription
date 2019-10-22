@@ -25,6 +25,14 @@ class M180531101210_subscribe_permission extends Migration
 				'index' => ['index subscribed', [Role::ROLE_USER]],
 				'create' => ['create subscription', [Role::ROLE_USER]],
 			],
+			\ant\subscription\backend\controllers\BundleController::className() => [
+				'index' => ['index subscribed', [Role::ROLE_ADMIN]],
+				'user' => ['Subscription subscribed by a user', [Role::ROLE_ADMIN]],
+				'create' => ['create offline subscription', [Role::ROLE_ADMIN]],
+				'update' => ['update offline subscription', [Role::ROLE_ADMIN]],
+				'delete' => ['delete offline subscription', [Role::ROLE_ADMIN]],
+				'view' => ['view offline subscription', [Role::ROLE_ADMIN]],
+			],
 			\ant\subscription\backend\controllers\SubscriptionController::className() => [
 				'index' => ['index subscribed', [Role::ROLE_ADMIN]],
 				'user' => ['Subscription subscribed by a user', [Role::ROLE_ADMIN]],

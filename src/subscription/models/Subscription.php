@@ -3,12 +3,12 @@
 namespace ant\subscription\models;
 
 use Yii;
-use common\modules\payment\models\Invoice;
-use common\modules\user\models\User;
-use common\modules\organization\models\Organization;
+use ant\payment\models\Invoice;
+use ant\user\models\User;
+use ant\organization\models\Organization;
 use yii\behaviors\BlameableBehavior;
-use common\helpers\DateTime;
-use common\behaviors\TimestampBehavior;
+use ant\helpers\DateTime;
+use ant\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "em_subscription".
  *
@@ -135,7 +135,7 @@ class Subscription extends \yii\db\ActiveRecord
     }
 
     public static function find() {
-        return new \common\modules\subscription\models\query\SubscriptionQuery(get_called_class());
+        return new \ant\subscription\models\query\SubscriptionQuery(get_called_class());
     }
 	
 	public function getBundle() {

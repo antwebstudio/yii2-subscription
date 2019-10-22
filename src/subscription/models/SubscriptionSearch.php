@@ -21,6 +21,7 @@ class SubscriptionSearch extends Subscription
     public $packagePrice;
     public $actualPay;
     public $paymentDate;
+	public $userId;
 
     public $query = null;
     
@@ -85,6 +86,10 @@ class SubscriptionSearch extends Subscription
             'updated_at' => $this->updated_at,
             'invoice_id' => $this->invoice_id,
         ]);
+		
+		if ($this->userId) {
+			$query->andWhere(['owned_by' => $this->userId]);
+		}
 
         if ($this->username) {
             $query->andFilterWhere(['like', 'user.username' , $this->username]);

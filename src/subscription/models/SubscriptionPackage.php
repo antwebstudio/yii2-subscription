@@ -3,14 +3,14 @@
 namespace ant\subscription\models;
 
 use Yii;
-use common\behaviors\TimestampBehavior;
-use common\modules\user\models\User;
+use ant\behaviors\TimestampBehavior;
+use ant\user\models\User;
 use ant\organization\models\Organization;
-use common\modules\organization\models\Organization as OldOrganizationClass;
-use common\modules\payment\models\Invoice;
-use common\modules\payment\models\InvoiceItem;
-use common\modules\payment\models\BillableItem;
-use common\modules\contact\models\Contact;
+use ant\organization\models\Organization as OldOrganizationClass;
+use ant\payment\models\Invoice;
+use ant\payment\models\InvoiceItem;
+use ant\payment\models\BillableItem;
+use ant\contact\models\Contact;
 /**
  * This is the model class for table "em_subscription_package".
  *

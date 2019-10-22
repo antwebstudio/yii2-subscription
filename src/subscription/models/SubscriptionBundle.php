@@ -3,7 +3,7 @@
 namespace ant\subscription\models;
 
 use Yii;
-use common\modules\payment\models\Invoice;
+use ant\payment\models\Invoice;
 
 /**
  * This is the model class for table "ks_subscription_bundle".
@@ -29,7 +29,7 @@ class SubscriptionBundle extends \yii\db\ActiveRecord
 	public function behaviors() {
 		return [
             [
-                'class' => \common\behaviors\TimestampBehavior::className(),
+                'class' => \ant\behaviors\TimestampBehavior::className(),
 				'updatedAtAttribute' => null,
             ],
 		];
