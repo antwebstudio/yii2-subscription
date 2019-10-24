@@ -20,7 +20,7 @@ class Module extends \yii\base\Module
 	public function behaviors() {
 		return [
 			'configurable' => [
-				'class' => 'common\behaviors\ConfigurableModuleBehavior'
+				'class' => 'ant\behaviors\ConfigurableModuleBehavior'
 			],
 		];
 	}

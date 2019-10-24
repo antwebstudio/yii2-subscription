@@ -6,7 +6,7 @@ use unclead\multipleinput\MultipleInput;
 use unclead\multipleinput\TabularInput;
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\subscription\models\SubscriptionPackage */
+/* @var $model ant\subscription\models\SubscriptionPackage */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

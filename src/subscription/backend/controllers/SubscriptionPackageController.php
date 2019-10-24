@@ -3,9 +3,9 @@
 namespace ant\subscription\backend\controllers;
 
 use Yii;
-use common\modules\subscription\models\SubscriptionPackage;
-use common\modules\subscription\models\SubscriptionPackageItem;
-use common\modules\subscription\models\SubscriptionPackageSearch;
+use ant\subscription\models\SubscriptionPackage;
+use ant\subscription\models\SubscriptionPackageItem;
+use ant\subscription\models\SubscriptionPackageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

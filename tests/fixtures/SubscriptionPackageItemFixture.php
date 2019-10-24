@@ -9,5 +9,5 @@ use yii\test\ActiveFixture;
  */
 class SubscriptionPackageItemFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\subscription\models\SubscriptionPackageItem';
+    public $modelClass = 'ant\subscription\models\SubscriptionPackageItem';
 }

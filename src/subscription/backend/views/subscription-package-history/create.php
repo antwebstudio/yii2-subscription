@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\subscription\models\SubscriptionPackageHistory */
+/* @var $model ant\subscription\models\SubscriptionPackageHistory */
 
 $this->title = Yii::t('app', 'Create Subscription Package History');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Subscription Package Histories'), 'url' => ['index']];

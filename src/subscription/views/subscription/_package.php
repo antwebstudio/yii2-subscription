@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Url;
-use common\helpers\Currency;
+use ant\helpers\Currency;
 ?>
 
 <div class="row">

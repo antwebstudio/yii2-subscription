@@ -2,7 +2,7 @@
 
 namespace ant\subscription\migrations\db;
 
-use common\components\Migration;
+use ant\db\Migration;
 
 class M180508_000006_create_subscription extends Migration
 {

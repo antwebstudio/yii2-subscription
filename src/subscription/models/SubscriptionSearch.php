@@ -5,10 +5,10 @@ namespace ant\subscription\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\modules\subscription\models\Subscription;
+use ant\subscription\models\Subscription;
 
 /**
- * SubscriptionSearch represents the model behind the search form about `common\modules\subscription\models\Subscription`.
+ * SubscriptionSearch represents the model behind the search form about `ant\subscription\models\Subscription`.
  */
 class SubscriptionSearch extends Subscription
 {

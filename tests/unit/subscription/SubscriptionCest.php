@@ -4,9 +4,9 @@
 //use Yii;
 use yii\helpers\Html;
 //use tests\codeception\common\UnitTester;
-use common\modules\user\models\User;
-use common\modules\subscription\models\SubscriptionPackage;
-use common\modules\subscription\models\SubscriptionPackageItem;
+use ant\user\models\User;
+use ant\subscription\models\SubscriptionPackage;
+use ant\subscription\models\SubscriptionPackageItem;
 
 class SubscriptionCest
 {
@@ -34,7 +34,7 @@ class SubscriptionCest
         Yii::configure(Yii::$app, [
             'components' => [
                 'subscription' => [
-                    'class' => \common\modules\subscription\components\SubscriptionComponent::className(),
+                    'class' => \ant\subscription\components\SubscriptionComponent::className(),
                     'creditSubscriptionIdentity' => $this->identity,
                 ],
             ],

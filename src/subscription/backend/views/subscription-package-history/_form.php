@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\subscription\models\SubscriptionPackageHistory */
+/* @var $model ant\subscription\models\SubscriptionPackageHistory */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

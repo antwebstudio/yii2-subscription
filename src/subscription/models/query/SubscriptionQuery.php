@@ -3,8 +3,8 @@
 namespace ant\subscription\models\query;
 
 use yii\db\Expression;
-use common\modules\subscription\models\Subscription;
-use common\modules\payment\models\Invoice;
+use ant\subscription\models\Subscription;
+use ant\payment\models\Invoice;
 use Yii;
 
 class SubscriptionQuery extends \yii\db\ActiveQuery {

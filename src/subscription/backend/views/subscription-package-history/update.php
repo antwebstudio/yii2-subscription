@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\subscription\models\SubscriptionPackageHistory */
+/* @var $model ant\subscription\models\SubscriptionPackageHistory */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Subscription Package History',

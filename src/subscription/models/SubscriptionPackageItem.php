@@ -3,7 +3,7 @@
 namespace ant\subscription\models;
 
 use Yii;
-use common\behaviors\TimestampBehavior;
+use ant\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "em_subscription_package_item".
  *

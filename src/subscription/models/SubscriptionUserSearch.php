@@ -5,12 +5,12 @@ namespace ant\subscription\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\modules\user\models\User;
-use common\modules\user\models\UserSearch;
-use common\behaviors\TimestampBehavior;
+use ant\user\models\User;
+use ant\user\models\UserSearch;
+use ant\behaviors\TimestampBehavior;
 
 /**
- * UserSearch represents the model behind the search form about `common\modules\user\models\User`.
+ * UserSearch represents the model behind the search form about `ant\user\models\User`.
  */
 class SubscriptionUserSearch extends UserSearch
 {

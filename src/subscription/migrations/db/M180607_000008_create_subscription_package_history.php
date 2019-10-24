@@ -2,7 +2,7 @@
 
 namespace ant\subscription\migrations\db;
 
-use common\components\Migration;
+use ant\db\Migration;
 
 class M180607_000008_create_subscription_package_history extends Migration
 {

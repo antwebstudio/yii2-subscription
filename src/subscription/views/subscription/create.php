@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\subscription\models\Subscription */
+/* @var $model ant\subscription\models\Subscription */
 
 $this->title = Yii::t('app', 'Subscription');
 $this->params['title'] = $this->title;

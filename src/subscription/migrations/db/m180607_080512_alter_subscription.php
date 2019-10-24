@@ -1,7 +1,7 @@
 <?php
 namespace ant\subscription\migrations\db;
 
-use common\components\Migration;
+use ant\db\Migration;
 
 class m180607_080512_alter_subscription extends Migration
 {

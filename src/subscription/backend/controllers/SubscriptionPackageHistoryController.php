@@ -3,8 +3,8 @@
 namespace ant\subscription\backend\controllers;
 
 use Yii;
-use common\modules\subscription\models\SubscriptionPackageHistory;
-use common\modules\subscription\models\SubscriptionPackageSearchHistory;
+use ant\subscription\models\SubscriptionPackageHistory;
+use ant\subscription\models\SubscriptionPackageSearchHistory;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

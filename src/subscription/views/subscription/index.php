@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use ant\subscription\models\Subscription;
-use common\modules\organization\models\Organization;
+use ant\organization\models\Organization;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\modules\subscription\models\SubscriptionSearch */
+/* @var $searchModel ant\subscription\models\SubscriptionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Subscriptions');

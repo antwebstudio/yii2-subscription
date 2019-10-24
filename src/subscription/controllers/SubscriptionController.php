@@ -7,7 +7,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use common\modules\organization\models\Organization;
+use ant\organization\models\Organization;
 use ant\subscription\models\SubscriptionPackage;
 use ant\subscription\models\Subscription;
 use ant\subscription\models\SubscriptionSearch;

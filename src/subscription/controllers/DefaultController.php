@@ -4,8 +4,8 @@ namespace ant\subscription\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
-use common\modules\contact\models\Contact;
-use common\modules\address\models\Address;
+use ant\contact\models\Contact;
+use ant\address\models\Address;
 use ant\subscription\models\Subscription;
 use ant\organization\models\Organization;
 

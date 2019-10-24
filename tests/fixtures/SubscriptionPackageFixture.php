@@ -9,7 +9,7 @@ use yii\test\ActiveFixture;
  */
 class SubscriptionPackageFixture extends ActiveFixture
 {
-    public $modelClass = 'common\modules\subscription\models\SubscriptionPackage';
+    public $modelClass = 'ant\subscription\models\SubscriptionPackage';
 	public $depends = [
 		'tests\fixtures\SubscriptionPackageItemFixture',
 	];

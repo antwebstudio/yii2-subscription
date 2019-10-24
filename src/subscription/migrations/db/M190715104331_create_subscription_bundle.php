@@ -2,7 +2,7 @@
 
 namespace ant\subscription\migrations\db;
 
-use common\components\Migration;
+use ant\db\Migration;
 
 /**
  * Class M190715104331_create_subscription_bundle

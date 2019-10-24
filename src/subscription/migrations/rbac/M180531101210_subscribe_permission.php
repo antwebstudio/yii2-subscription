@@ -3,8 +3,8 @@
 namespace ant\subscription\migrations\rbac;
 
 use yii\db\Schema;
-use common\rbac\Migration;
-use common\rbac\Role;
+use ant\rbac\Migration;
+use ant\rbac\Role;
 use ant\subscription\backend\controllers\SubscriptionPackageController;
 use ant\subscription\backend\controllers\SubscriptionPackageHistoryController;
 use ant\subscription\backend\controllers\SubscribedMemberController;

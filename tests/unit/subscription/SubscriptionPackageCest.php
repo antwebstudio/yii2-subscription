@@ -4,7 +4,7 @@ namespace subscription;
 use UnitTester;
 use ant\subscription\models\Subscription;
 use ant\subscription\models\SubscriptionPackage;
-use common\modules\organization\models\Organization;
+use ant\organization\models\Organization;
 
 class SubscriptionPackageCest
 {

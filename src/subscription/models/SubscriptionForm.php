@@ -18,7 +18,7 @@ class SubscriptionForm extends \ant\base\FormModel {
 				'class' => 'ant\subscription\models\SubscriptionPackage',
 			],
 			'organization' => [
-				'class' => 'common\modules\organization\models\Organization',
+				'class' => 'ant\organization\models\Organization',
 			],
 			'subscriptionBundle:readonly' => [
 				'class' => 'ant\subscription\models\SubscriptionBundle',

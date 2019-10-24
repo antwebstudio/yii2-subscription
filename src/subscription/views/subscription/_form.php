@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\subscription\models\Subscription */
+/* @var $model ant\subscription\models\Subscription */
 /* @var $form yii\widgets\ActiveForm */
 $models = $model->getModels();
 $models[] = $model;

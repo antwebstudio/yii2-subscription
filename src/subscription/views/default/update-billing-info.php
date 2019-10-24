@@ -4,9 +4,9 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 
-use common\modules\contact\models\Contact;
-use common\modules\address\models\AddressCountry as Country;
-use common\modules\address\models\AddressZone;
+use ant\contact\models\Contact;
+use ant\address\models\AddressCountry as Country;
+use ant\address\models\AddressZone;
 
 $this->title = 'Billing Setting';
 $this->params['title'] = $this->title;
@@ -14,7 +14,7 @@ $this->params['title'] = $this->title;
 
 Yii::configure($model, [
 	'as configurable' => [
-		'class' => 'common\behaviors\ConfigurableModelBehavior',
+		'class' => 'ant\behaviors\ConfigurableModelBehavior',
 		'extraAttributeLabels' => [
 			'organization' => 'Billing Name',
 		],

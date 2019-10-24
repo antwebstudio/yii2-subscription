@@ -5,11 +5,11 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use trntv\filekit\widget\Upload;
-use common\modules\user\models\User;
-use common\modules\subscription\models\SubscriptionPackage;
+use ant\user\models\User;
+use ant\subscription\models\SubscriptionPackage;
 $customDate = [];
 /* @var $this yii\web\View */
-/* @var $model common\modules\subscription\models\Subscription */
+/* @var $model ant\subscription\models\Subscription */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -2,8 +2,8 @@
 namespace ant\subscription\components;
 
 use yii\helpers\Html;
-use common\modules\subscription\models\Subscription;
-use common\modules\payment\models\Invoice;
+use ant\subscription\models\Subscription;
+use ant\payment\models\Invoice;
 
 class SubscriptionComponent extends \yii\base\Component {
     public $creditSubscriptionIdentity;

@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use ant\subscription\models\Subscription;
 
 /**
- * SubscriptionSearch represents the model behind the search form about `common\modules\subscription\models\Subscription`.
+ * SubscriptionSearch represents the model behind the search form about `ant\subscription\models\Subscription`.
  */
 class SubscriptionBundleSearch extends SubscriptionBundle
 {
