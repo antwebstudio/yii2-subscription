@@ -3,7 +3,7 @@
 namespace ant\subscription\controllers;
 
 
-class SubscriptionController extends Controller {
+class BundleController extends Controller {
 	public function actionUser($user) {
         $searchModel = new SubscriptionBundleSearch();
 		$searchModel->userId = $user;
