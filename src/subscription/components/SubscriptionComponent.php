@@ -4,13 +4,27 @@ namespace ant\subscription\components;
 use yii\helpers\Html;
 use ant\subscription\models\Subscription;
 use ant\payment\models\Invoice;
+use ant\models\ModelClass;
 
 class SubscriptionComponent extends \yii\base\Component {
     public $creditSubscriptionIdentity;
 	
 	public function getCurrentActiveSubscription() {
 		
-	}
+    }
+    
+    public function subscribe($subscribable) {
+        $subscription = new Subscription;
+        $subscription->item_id = $subscribable->id;
+        $subscription->item_class_id = ModelClass::getClassId($subscribable);
+        $subscription->subscription_identity = 'default';
+        $subscription->price = $subscribable->price;
+        $subscription->purchased_unit = 1;
+        
+        if (!$subscription->save()) throw new \Exception(print_r($subscription->errors, 1));
+
+        return $subscription;
+    }
 
     public function addCredit($ownerId, $credit) {
         $invoice = $this->createInvoice($credit);

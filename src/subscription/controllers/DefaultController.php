@@ -13,8 +13,7 @@ class DefaultController extends Controller {
     public $layout = '//member-dashboard';
     
 	public function actionIndex() {
-        return $this->render($this->action->id, [
-        ]);
+        return $this->redirect(['/subscription/subscription']);
 	}
 	
 	public function actionUpdateBillingInfo() {

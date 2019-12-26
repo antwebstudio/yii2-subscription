@@ -3,7 +3,7 @@
 namespace ant\subscription\controllers;
 
 
-class BundleController extends Controller {
+class BundleController extends \yii\web\Controller {
 	public function actionUser($user) {
         $searchModel = new SubscriptionBundleSearch();
 		$searchModel->userId = $user;

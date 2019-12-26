@@ -47,11 +47,11 @@ class Subscription extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subscription_identity', 'price', 'purchased_unit', 'used_unit', 'priority'], 'required'],
+            [['subscription_identity', 'price', 'purchased_unit'], 'required'],
             [['price'], 'number'],
             [['purchased_unit', 'used_unit', 'content_valid_period', 'status', 'owned_by', 'invoice_id', 'app_id'], 'integer'],
             [['expire_at', 'created_at', 'updated_at'], 'safe'],
-            [['status'], 'default', 'value' => 0],
+            [['status', 'used_unit', 'priority'], 'default', 'value' => 0],
             [['subscription_identity'], 'string', 'max' => 50],
             [['invoice_id'], 'exist', 'skipOnError' => true, 'targetClass' => Invoice::className(), 'targetAttribute' => ['invoice_id' => 'id']],
         ];
@@ -140,7 +140,12 @@ class Subscription extends \yii\db\ActiveRecord
 	
 	public function getBundle() {
 		return $this->hasOne(SubscriptionBundle::class, ['id' => 'bundle_id']);
-	}
+    }
+    
+    public function getItem() {
+        $className = \ant\models\ModelClass::getClassName($this->item_class_id);
+        return $this->hasOne($className, ['id' => 'item_id']);
+    }
 	
 	public function getOrganization() {
 		return $this->hasOne(Organization::class, ['id' => 'organization_id'])

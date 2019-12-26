@@ -7,5 +7,5 @@ return [
 		//'v1' => \ant\booking\api\v1\Module::class,
 		'backend' => \ant\subscription\backend\Module::class,
 	],
-	'depends' => [],
+	'depends' => ['organization'],
 ];
