@@ -25,6 +25,11 @@ class SubscriptionComponent extends \yii\base\Component {
 
         return $subscription;
     }
+	
+	public function earnCreditByAmount($ownerId, $amount) {
+		$credit = floor($amount);
+		return $this->addCredit($ownerId, $credit);
+	}
 
     public function addCredit($ownerId, $credit) {
         $invoice = $this->createInvoice($credit);

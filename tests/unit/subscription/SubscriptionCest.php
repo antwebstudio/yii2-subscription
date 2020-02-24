@@ -37,6 +37,10 @@ class SubscriptionCest
                     'class' => \ant\subscription\components\SubscriptionComponent::className(),
                     'creditSubscriptionIdentity' => $this->identity,
                 ],
+                'subscription2' => [
+                    'class' => \ant\subscription\components\SubscriptionComponent::className(),
+                    'creditSubscriptionIdentity' => $this->identity,
+                ],
             ],
         ]);
     }
@@ -51,6 +55,7 @@ class SubscriptionCest
 
         Yii::$app->subscription->addCredit($user->id, 200);
         $I->assertEquals(200, Yii::$app->subscription->getCreditBalance($user->id));
+        $I->assertEquals(200, Yii::$app->subscription2->getCreditBalance($user->id));
     }
 
     public function testAddCreditSum(UnitTester $I) {

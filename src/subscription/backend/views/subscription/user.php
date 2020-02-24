@@ -1,6 +1,6 @@
 
 <?php if ($searchModel->userId): ?>
-    <?= \yii\bootstrap\Nav::widget([
+    <?= \ant\widgets\Tabs::widget([
         'options' => [
             'class' => 'nav-tabs',
             'style' => 'margin-bottom: 15px'
