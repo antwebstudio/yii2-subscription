@@ -55,9 +55,11 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 
     public function behaviors(){
         return [
+            TimestampBehavior::class,
             [
-                'class' => TimestampBehavior::className(),
-            ],
+				'class' => \ant\behaviors\SerializableAttribute::class,
+				'attributes' => ['options'],
+			],
         ];
     }
     /**

@@ -128,6 +128,10 @@ class Subscription extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Invoice::className(), ['id' => 'invoice_id']);
     }
+	
+	public function getPackage() {
+		return $this->getSubscriptionPackage();
+	}
 
     public function getSubscriptionPackage()
     {

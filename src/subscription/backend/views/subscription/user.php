@@ -1,6 +1,6 @@
 
 <?php if ($searchModel->userId): ?>
-    <?= \ant\widgets\Tabs::widget([
+    <?= \ant\widgets\Nav::widget([
         'options' => [
             'class' => 'nav-tabs',
             'style' => 'margin-bottom: 15px'
