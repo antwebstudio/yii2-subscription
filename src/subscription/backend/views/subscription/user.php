@@ -1,4 +1,6 @@
-
+<?php
+	$this->title = 'Subscription'.(isset($user) ? ' - '.$user->username : '');
+?>
 <?php if ($searchModel->userId): ?>
     <?= \ant\widgets\Nav::widget([
         'options' => [

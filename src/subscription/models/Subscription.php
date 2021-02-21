@@ -95,9 +95,12 @@ class Subscription extends \yii\db\ActiveRecord
 	
 	public function getStatusHtml() {
 		if ($this->isExpired) {
-			return '<span class="label label-warning">Expired</span>';
-		}
-		return '<span class="label label-success">Active</span>';
+			return '<span class="badge badge-warning">Expired</span>';
+		} else if ($this->isActive) {
+		    return '<span class="badge badge-success">Active</span>';
+        } else {
+            return '<span class="badge badge-dark">Pending</span>';
+        }
 	}
 	
 	public function getIsFree() {
@@ -105,7 +108,7 @@ class Subscription extends \yii\db\ActiveRecord
 	}
 	
 	public function getIsActive() {
-		throw new \Exception('Not yet implemented');
+        return $this->invoice->isPaid;
 	}
 	
 	public function getIsSuspended() {

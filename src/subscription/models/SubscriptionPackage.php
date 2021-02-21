@@ -146,8 +146,7 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 		if ($subscriber instanceof User) {
 			$user = $subscriber;
 			if (!$user->id) throw new \Exception('User is not an valid user. ');
-			
-			if (!isset($user->profile->contact)) throw new \Exception('Cannot issue invoice to user (user ID: '.$user->id.') without default contact info. ');
+	
 			$billTo = $user;
 		} else if ($subscriber instanceof Organization || $subscriber instanceof OldOrganizationClass) {
 			$organization = $subscriber;
@@ -163,6 +162,8 @@ class SubscriptionPackage extends \yii\db\ActiveRecord implements BillableItem
 		
 		try {
 			if ($createInvoice) {
+				if (!isset($user->profile->contact)) throw new \Exception('Cannot issue invoice to user (user ID: '.$user->id.') without default contact info. ');
+
 				$invoice = Invoice::createFromBillableItem($this, $billTo);
 			}
 			
